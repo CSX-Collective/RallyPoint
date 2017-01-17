@@ -1,0 +1,36 @@
+{
+  "name": "rallypoint",
+  "version": "0.1.0",
+  "description": "Platform for broadcasting ephemeral events.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSX-Collective/RallyPoint.git"
+  },
+  "keywords": [
+    "Platform",
+    "React",
+    "Redux",
+    "Next.js",
+    "SASS",
+    "Mocha",
+    "Enzyme",
+    "Zombie",
+    "React",
+    "Router",
+    "REST",
+    "Node.js",
+    "Redis",
+    "Winston",
+    "PostGIS"
+  ],
+  "author": "CSX Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CSX-Collective/RallyPoint/issues"
+  },
+  "homepage": "https://github.com/CSX-Collective/RallyPoint#readme"
+}
