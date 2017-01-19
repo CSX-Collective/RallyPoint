@@ -4,7 +4,8 @@
   "description": "Platform for broadcasting ephemeral events.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "nodemon src/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,5 +33,10 @@
   "bugs": {
     "url": "https://github.com/CSX-Collective/RallyPoint/issues"
   },
-  "homepage": "https://github.com/CSX-Collective/RallyPoint#readme"
+  "homepage": "https://github.com/CSX-Collective/RallyPoint#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0"
+  }
 }
