@@ -1,5 +1,5 @@
 # RallyPoint
-Platform for broadcasting ephemeral events.
+Platform for broadcasting ephemeral events
 
 ##Description
 
@@ -9,5 +9,5 @@ Platform for broadcasting ephemeral events.
 
 ##Support
 
-#License
+##License
 [MIT](https://github.com/CSX-Collective/RallyPoint/blob/master/LICENSE)
