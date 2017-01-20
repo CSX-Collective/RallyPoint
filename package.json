@@ -6,7 +6,6 @@
   "scripts": {
     "test": "test",
     "start": "nodemon src/server/index.js",
-    "dev": "webpack-dev-server --inline --hot",
     "build": "webpack -w"
   },
   "repository": {
