@@ -4,7 +4,9 @@
   "description": "Platform for broadcasting ephemeral events.",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha -w tests/client/fixtures/jsdom.js tests/*.spec.js",
+    "test:client": "mocha -w tests/client/fixtures/jsdom.js tests/client/*.spec.js",
+    "test:server": "mocha -w tests/server/*.spec.js",
     "start": "nodemon src/server/index.js",
     "build": "webpack -w"
   },
