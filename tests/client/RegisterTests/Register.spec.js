@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 // import Register from '../../../../src/client/components';
 
@@ -18,7 +18,7 @@ describe('Component: <Register/>', () => {
   });
 
   it('should update isPending on click', () => {
-    const wrapper = shallow(<Register/>);
+    const wrapper = mount(<Register/>);
     wrapper.find('button').simulate('click');
     expect(wrapper.props().isPending).to.be.true;
   });
