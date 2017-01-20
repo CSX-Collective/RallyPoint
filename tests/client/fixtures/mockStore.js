@@ -4,9 +4,14 @@ import thunk from 'redux-thunk';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 mockStore({
-  name: '',
-  email: '',
-  username: '',
+  user: {
+    name: '',
+    email: '',
+    username: '',
+    isCreating: false,
+    isLoggedIn: false,
+    didLogout: false,
+  },
 });
 
 export default mockStore;
