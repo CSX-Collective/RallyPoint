@@ -8,9 +8,8 @@ mockStore({
     name: '',
     email: '',
     username: '',
-    isCreating: false,
+    isPending: false,
     isLoggedIn: false,
-    didLogout: false,
   },
 });
 
