@@ -2,6 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
+const logger = require('./logs/logger');
+const db = require('./database/database');
 
 const app = express();
 
@@ -23,5 +25,5 @@ app.all('*', function route404(req, res) {
 });
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  logger.info(`Listening on port ${PORT}`);
 });
