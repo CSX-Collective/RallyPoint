@@ -34,7 +34,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.html$/,
-      loader: 'file?name=[name].[ext]',
+      loader: 'html',
     }, {
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
