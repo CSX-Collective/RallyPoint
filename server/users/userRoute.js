@@ -13,11 +13,19 @@ const createUserSchema = {
   dob: Joi.date().required(),
 };
 
+const updateUserSchema = {
+  email: Joi.string().email(),
+  password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
+  first_name: Joi.string().alphanum().min(3).max(30),
+  last_name: Joi.string().alphanum().min(3).max(30),
+  dob: Joi.date(),
+};
+
 userRoute.delete('/:user_id', userCtrl.deleteUser);
 
 userRoute.get('/', userCtrl.getUsers);
 userRoute.get('/:user_id', userCtrl.getUserById);
 
-userRoute.patch('/:user_id', userCtrl.updateUser);
+userRoute.patch('/:user_id', validate(updateUserSchema), userCtrl.updateUser);
 
 userRoute.post('/', validate(createUserSchema), userCtrl.createUser);

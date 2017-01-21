@@ -6,7 +6,7 @@ const userCtrl = {
   createUser: (req, res, next) => {
     const user = req.body;
  
-    db.query(`insert into users (email, password, first_name, last_name, dob) values ($1, $2, $3, $4, $5)`, [user.email, user.password, user.first_name, user.last_name, user.dob], (err, user) => {
+    db.query(`insert into users (email, password, first_name, last_name, dob) values ($1, $2, $3, $4, $5)`, [user.email, user.password, user.first_name, user.last_name, user.dob], (err) => {
       if (err) logger.error(err);
 
       return res.status(201).end();
@@ -14,7 +14,7 @@ const userCtrl = {
   },
 
   deleteUser: (req, res, next) => {
-    db.query(`delete from users where _id= ${req.params.user_id}`, (err, user) => {
+    db.query(`delete from users where _id= ${req.params.user_id}`, (err) => {
       if (err) logger.error(err);
 
       return res.status(204).end();
@@ -38,18 +38,19 @@ const userCtrl = {
   },
 
   updateUser: (req, res, next) => {
+    const user = req.body;
+    const fields = Object.keys(user);
     let query = 'update users set ';
-    const fields = Object.keys(req.body);
 
     fields.forEach((field) => {
       // set the value of the column for each field in the request body
-      query += `${field} = '${req.body[field]}', `;
+      query += `${field} = '${user[field]}', `;
     });
 
     // get rid of last comma before setting predicates
     query = query.replace(/,\s*$/, '') + ` where _id= ${req.params.user_id}`;
 
-    db.query(query, (err, user) => {
+    db.query(query, (err) => {
       if (err) logger.error(err);
 
       return res.status(204).end();
