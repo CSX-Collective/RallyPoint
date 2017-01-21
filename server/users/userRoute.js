@@ -13,5 +13,11 @@ const createUserSchema = {
   dob: Joi.date().required(),
 };
 
+userRoute.delete('/:user_id', userCtrl.deleteUser);
+
 userRoute.get('/', userCtrl.getUsers);
+userRoute.get('/:user_id', userCtrl.getUserById);
+
+userRoute.patch('/:user_id', userCtrl.updateUser);
+
 userRoute.post('/', validate(createUserSchema), userCtrl.createUser);
