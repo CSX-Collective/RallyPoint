@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const logger = require('./logs/logger');
 const db = require('./database/database');
+const userRoute = require('./users/userRoute');
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.get('/', (req, res) => {
 app.get('/dist/bundle.js', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/bundle.js'));
 });
+
+app.use('/users', userRoute);
 
 app.all('*', function route404(req, res) {
   res.status(404).end();
