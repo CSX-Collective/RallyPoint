@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
 const logger = require('./logs/logger');
-const db = require('./database/database');
 const userRoute = require('./users/userRoute');
 
 const app = express();
