@@ -10,3 +10,5 @@ pool.connect((err, client, done) => {
 
   logger.info('Successfully connected to database!');
 });
+
+module.exports = pool;
