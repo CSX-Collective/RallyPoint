@@ -20,12 +20,7 @@ describe('GET /users', () => {
     server
     .get('/users')
     .expect(200)
-    .end((err, res) => {
-      if (err) done(err);
-   
-      expect(res.body.length).to.eql(1);
-      done();
-    });
+    .end(done);
   });
 
   it ('Should fetch user', (done) => {
@@ -79,6 +74,7 @@ describe('DELETE /users', () => {
 }); 
 
 describe('PATCH /users', () => {
+
   beforeEach((done) => {
     db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (1, 'test@xyz.io', 'shoess231', 'Tony', 'Tiger', '2017-10-1')`, (err) => {
       if (err) logger.error(err);
@@ -121,13 +117,7 @@ describe('PATCH /users', () => {
 });
 
 describe('POST /users', () => {
-  beforeEach((done) => {
-    db.query(`delete from users`, (err) => {
-      if (err) logger.error(err);
-    });
-    done();
-  });
-
+ 
   it ('Should create user', (done) => {
     server
     .post('/users')
