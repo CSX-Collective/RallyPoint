@@ -1,7 +1,6 @@
 const db = require('./userModel');
 const logger = require('../logs/logger');
-const bcrypt = require('bcrypt');
-const SALT_FACTOR = 10;
+const { decryptPassword, encryptPassword } = require('../utils/validate');
 
 const userCtrl = {
 
@@ -77,16 +76,6 @@ const userCtrl = {
       return res.status(204).end();
     });
   },
-};
-
-const encryptPassword = (password) => {
-  const salt = bcrypt.genSaltSync(SALT_FACTOR);
-  const hash = bcrypt.hashSync(password, salt);
-  return hash;
-};
-
-const decryptPassword = (plainPassword, hashedPassword) => {
-  return bcrypt.compareSync(plainPassword, hashedPassword);
 };
 
 module.exports = userCtrl;

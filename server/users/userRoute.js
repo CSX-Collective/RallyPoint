@@ -1,7 +1,7 @@
 const express = require('express');
 const userCtrl = require('./userCtrl');
 const Joi = require('joi');
-const validate = require('../utils/validate');
+const { validateSchema } = require('../utils/validate');
 
 const userRoute = module.exports = express.Router();
 
@@ -31,7 +31,7 @@ userRoute.delete('/:user_id', userCtrl.deleteUser);
 userRoute.get('/', userCtrl.getUsers);
 userRoute.get('/:user_id', userCtrl.getUserById);
 
-userRoute.patch('/:user_id', validate(updateUserSchema), userCtrl.updateUser);
+userRoute.patch('/:user_id', validateSchema(updateUserSchema), userCtrl.updateUser);
 
-userRoute.post('/', validate(createUserSchema), userCtrl.createUser);
-userRoute.post('/login', validate(loginUserSchema), userCtrl.loginUser);
+userRoute.post('/', validateSchema(createUserSchema), userCtrl.createUser);
+userRoute.post('/login', validateSchema(loginUserSchema), userCtrl.loginUser);
