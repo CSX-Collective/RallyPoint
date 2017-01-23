@@ -44,6 +44,9 @@ const userCtrl = {
     db.query(`select * from users where email= '${req.body.email}' limit 1`, (err, user) => {
       if (err) logger.error(err);
 
+      // no user found by that email
+      if (!user.rows[0]) return res.status(401).end();
+
       const password = user.rows[0].password;
 
       if (decryptPassword(req.body.password, password)) {
