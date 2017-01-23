@@ -13,6 +13,11 @@ const createUserSchema = {
   dob: Joi.date().required(),
 };
 
+const loginUserSchema = {
+  email: Joi.string().email().required(),
+  password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+};
+
 const updateUserSchema = {
   email: Joi.string().email(),
   password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
@@ -29,3 +34,4 @@ userRoute.get('/:user_id', userCtrl.getUserById);
 userRoute.patch('/:user_id', validate(updateUserSchema), userCtrl.updateUser);
 
 userRoute.post('/', validate(createUserSchema), userCtrl.createUser);
+userRoute.post('/login', validate(loginUserSchema), userCtrl.loginUser);
