@@ -2,15 +2,17 @@ const expect = require('chai').expect;
 const supertest = require('supertest-as-promised');
 const faker = require('faker');
 const db = require('../../../server/database/database');
+const user = require('../fixtures/userFixtures');
+const { _id, email, password, first_name, last_name, dob } = user;
 
 // This agent refers to PORT where program is runninng.
 
 const server = supertest.agent('http://localhost:8080');
 
 describe('GET /users', () => {
-
+  
   beforeEach((done) => {
-    db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (1, 'test@xyz.io', 'shoess231', 'Tony', 'Tiger', '2017-10-1')`, (err) => {
+    db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (${_id}, '${email}', '${password}', '${first_name}', '${last_name}', '${dob}')`, (err) => {
       if (err) done(err);
     });
     done();
@@ -52,8 +54,8 @@ describe('GET /users', () => {
 describe('DELETE /users', () => {
 
   beforeEach((done) => {
-    db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (1, 'test@xyz.io', 'shoess231', 'Tony', 'Tiger', '2017-10-1')`, (err) => {
-      if (err) logger.error(err);
+    db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (${_id}, '${email}', '${password}', '${first_name}', '${last_name}', '${dob}')`, (err) => {
+      if (err) done(err);
     });
     done();
   });
@@ -76,8 +78,8 @@ describe('DELETE /users', () => {
 describe('PATCH /users', () => {
 
   beforeEach((done) => {
-    db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (1, 'test@xyz.io', 'shoess231', 'Tony', 'Tiger', '2017-10-1')`, (err) => {
-      if (err) logger.error(err);
+    db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (${_id}, '${email}', '${password}', '${first_name}', '${last_name}', '${dob}')`, (err) => {
+      if (err) done(err);
     });
     done();
   });
@@ -141,6 +143,39 @@ describe('POST /users', () => {
       last_name: faker.name.lastName(),
     })
     .expect(400)
+    .end(done);
+  });
+
+  it ('Should login user', (done) => {
+    server
+    .post('/users/login')
+    .send({
+      email: 'test@xyz.io',
+      password: 'shoes2231',
+    })
+    .expect(201)
+    .end(done);
+  });
+
+  it ('Should handle login of nonexistent user', (done) => {
+    server
+    .post('/users/login')
+    .send({
+      email: 'wrong@yahoo.com',
+      password: 'puppies',
+    })
+    .expect(401)
+    .end(done);
+  });
+
+  it ('Should handle incorrect password', (done) => {
+    server
+    .post('/users/login')
+    .send({
+      email: 'test@xyz.io',
+      password: 'puppies',
+    })
+    .expect(401)
     .end(done);
   });
 }); 
