@@ -4,11 +4,11 @@ const { decryptPassword, encryptPassword } = require('../utils/validate');
 
 const userCtrl = {
 
-  createUser: (req, res, next) => {
+  createUser: (req, res) => {
     const user = req.body;
     const password = encryptPassword(user.password);
  
-    db.query(`insert into users (email, password, first_name, last_name, dob) values ($1, $2, $3, $4, $5)`, [user.email, password, user.first_name, user.last_name, user.dob], (err) => {
+    db.query('insert into users (email, password, first_name, last_name, dob) values ($1, $2, $3, $4, $5)', [user.email, password, user.first_name, user.last_name, user.dob], (err) => {
       if (err) {
         logger.error(err);
         return res.status(400).end();
@@ -19,8 +19,8 @@ const userCtrl = {
     });
   },
 
-  deleteUser: (req, res, next) => {
-    db.query(`delete from users where _id= $1`, [req.params.user_id], (err) => {
+  deleteUser: (req, res) => {
+    db.query('delete from users where _id= $1', [req.params.user_id], (err) => {
       if (err) {
         logger.error(err);
         return res.status(400).end();
@@ -30,8 +30,8 @@ const userCtrl = {
     });
   },
 
-  getUserById: (req, res, next) => {
-    db.query(`select * from users where _id= $1 limit 1`, [req.params.user_id], (err, user) => {
+  getUserById: (req, res) => {
+    db.query('select * from users where _id= $1 limit 1', [req.params.user_id], (err, user) => {
       if (err) {
         logger.error(err);
         return res.status(400).end();
@@ -39,9 +39,9 @@ const userCtrl = {
 
       return res.status(200).send(user.rows[0]);
     });
-  }, 
+  },
 
-  getUsers: (req, res, next) => {
+  getUsers: (req, res) => {
     db.query('select * from users', (err, users) => {
       if (err) {
         logger.error(err);
@@ -52,8 +52,8 @@ const userCtrl = {
     });
   },
 
-  loginUser: (req, res, next) => {
-    db.query(`select password from users where email= $1 limit 1`, [req.body.email], (err, user) => {
+  loginUser: (req, res) => {
+    db.query('select password from users where email= $1 limit 1', [req.body.email], (err, user) => {
       if (err) {
         logger.error(err);
         return res.status(400).end();
@@ -68,14 +68,13 @@ const userCtrl = {
         req.session.key = req.body.email;
         // eventually redirect to home
         return res.status(201).end();
-      } else {
-        // passwords don't match
-        return res.status(401).end();
       }
+      // passwords don't match
+      return res.status(401).end();
     });
   },
 
-  updateUser: (req, res, next) => {
+  updateUser: (req, res) => {
     const user = req.body;
     const fields = Object.keys(user);
     let query = 'update users set ';
@@ -86,7 +85,7 @@ const userCtrl = {
     });
 
     // get rid of last comma before setting predicates
-    query = query.replace(/,\s*$/, '') + ` where _id= $1`;
+    query = query.replace(/,\s*$/, '') + ' where _id= $1';
 
     db.query(query, [req.params.user_id], (err) => {
       if (err) {
