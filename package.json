@@ -9,7 +9,8 @@
     "test:server": "NODE_ENV=test mocha -w tests/server/*",
     "start": "node server/index.js",
     "start:dev": "NODE_ENV=test nodemon server/index.js",
-    "build": "webpack -w"
+    "build": "webpack -w",
+    "lint": "eslint src/client/* & eslint server/*"
   },
   "repository": {
     "type": "git",
