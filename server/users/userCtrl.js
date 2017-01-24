@@ -17,7 +17,7 @@ const userCtrl = {
   },
 
   deleteUser: (req, res, next) => {
-    db.query(`delete from users where _id= ${req.params.user_id}`, (err) => {
+    db.query(`delete from users where _id= $1`, [req.params.user_id], (err) => {
       if (err) logger.error(err);
 
       return res.status(204).end();
@@ -25,7 +25,7 @@ const userCtrl = {
   },
 
   getUserById: (req, res, next) => {
-    db.query(`select * from users where _id= ${req.params.user_id} limit 1`, (err, user) => {
+    db.query(`select * from users where _id= $1 limit 1`, [req.params.user_id], (err, user) => {
       if (err) logger.error(err);
 
       return res.status(200).send(user.rows[0]);
@@ -41,7 +41,7 @@ const userCtrl = {
   },
 
   loginUser: (req, res, next) => {
-    db.query(`select * from users where email= '${req.body.email}' limit 1`, (err, user) => {
+    db.query(`select * from users where email= $1 limit 1`, [req.body.email], (err, user) => {
       if (err) logger.error(err);
 
       // no user found by that email
@@ -71,9 +71,9 @@ const userCtrl = {
     });
 
     // get rid of last comma before setting predicates
-    query = query.replace(/,\s*$/, '') + ` where _id= ${req.params.user_id}`;
+    query = query.replace(/,\s*$/, '') + ` where _id= $1`;
 
-    db.query(query, (err) => {
+    db.query(query, [req.params.user_id], (err) => {
       if (err) logger.error(err);
 
       return res.status(204).end();
