@@ -9,7 +9,10 @@ const userCtrl = {
     const password = encryptPassword(user.password);
  
     db.query(`insert into users (email, password, first_name, last_name, dob) values ($1, $2, $3, $4, $5)`, [user.email, password, user.first_name, user.last_name, user.dob], (err) => {
-      if (err) logger.error(err);
+      if (err) {
+        logger.error(err);
+        return res.status(400).end();
+      }
 
       req.session.key = user.email;
       return res.status(201).end();
@@ -18,7 +21,10 @@ const userCtrl = {
 
   deleteUser: (req, res, next) => {
     db.query(`delete from users where _id= $1`, [req.params.user_id], (err) => {
-      if (err) logger.error(err);
+      if (err) {
+        logger.error(err);
+        return res.status(400).end();
+      }
 
       return res.status(204).end();
     });
@@ -26,7 +32,10 @@ const userCtrl = {
 
   getUserById: (req, res, next) => {
     db.query(`select * from users where _id= $1 limit 1`, [req.params.user_id], (err, user) => {
-      if (err) logger.error(err);
+      if (err) {
+        logger.error(err);
+        return res.status(400).end();
+      }
 
       return res.status(200).send(user.rows[0]);
     });
@@ -34,7 +43,10 @@ const userCtrl = {
 
   getUsers: (req, res, next) => {
     db.query('select * from users', (err, users) => {
-      if (err) logger.error(err);
+      if (err) {
+        logger.error(err);
+        return res.status(400).end();
+      }
 
       return res.status(200).send(users.rows);
     });
@@ -42,7 +54,10 @@ const userCtrl = {
 
   loginUser: (req, res, next) => {
     db.query(`select * from users where email= $1 limit 1`, [req.body.email], (err, user) => {
-      if (err) logger.error(err);
+      if (err) {
+        logger.error(err);
+        return res.status(400).end();
+      }
 
       // no user found by that email
       if (!user.rows[0]) return res.status(401).end();
@@ -74,7 +89,10 @@ const userCtrl = {
     query = query.replace(/,\s*$/, '') + ` where _id= $1`;
 
     db.query(query, [req.params.user_id], (err) => {
-      if (err) logger.error(err);
+      if (err) {
+        logger.error(err);
+        return res.status(400).end();
+      }
 
       return res.status(204).end();
     });
