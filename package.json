@@ -10,7 +10,9 @@
     "start": "node server/index.js",
     "start:dev": "NODE_ENV=test nodemon server/index.js",
     "build": "webpack -w",
-    "lint": "eslint src/client/* & eslint server/*"
+    "lint": "eslint src/client/* & eslint server/*",
+    "lint:client": "eslint src/client/*",
+    "lint:server": "eslint server/*"
   },
   "repository": {
     "type": "git",
