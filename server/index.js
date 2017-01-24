@@ -4,28 +4,28 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
 const morgan = require('morgan');
+const config = require('config');
 const logger = require('./logs/logger');
 const userRoute = require('./users/userRoute');
-const config = require('config');
 
 // session handlers
 const redis = require('redis');
 const client = redis.createClient();
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
-const session_secret = config.get('session_secret');
+const sessionSecret = config.get('session_secret');
 
 client.on('error', (err) => logger.error(err));
 
 app.use(session({
   store: new RedisStore({ client, ttl: 3600 }),
-  secret: session_secret,
+  secret: sessionSecret,
   resave: false,
   saveUninitialized: false,
 }));
 app.use((req, res, next) => {
   if (!req.session) {
-    return next(logger.error(err));
+    return next(new Error('Redis connection lost.'));
   }
 
   next();
@@ -48,7 +48,7 @@ app.get('/dist/bundle.js', (req, res) => {
 
 app.use('/users', userRoute);
 
-app.all('*', function route404(req, res) {
+app.all('*', (req, res) => {
   res.status(404).end();
 });
 
