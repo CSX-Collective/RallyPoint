@@ -53,7 +53,7 @@ const userCtrl = {
   },
 
   loginUser: (req, res, next) => {
-    db.query(`select * from users where email= $1 limit 1`, [req.body.email], (err, user) => {
+    db.query(`select password from users where email= $1 limit 1`, [req.body.email], (err, user) => {
       if (err) {
         logger.error(err);
         return res.status(400).end();
