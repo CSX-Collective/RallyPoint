@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import nock from 'nock';
 import mockStore from './../fixtures/mockStore';
 import {
-  registerActionSuccessFixtures,
-  registerActionFailureFixtures,
+  registerActionSuccessFixture,
+  registerActionFailureFixture,
   registerMockActionPayload,
 } from './../fixtures/RegisterFixtures/registerActionFixtures';
 // import * as actions from '../../../../src/client/actions/index';
@@ -27,7 +27,7 @@ describe('Action Creator: registerUser', () => {
 
     return mockStore.dispatch(actions.registerUser(registerMockActionPayload))
       .then(() => {
-        expect(mockStore.getActions()).to.be.equal.to(registerActionSuccessFixtures);
+        expect(mockStore.getActions()).to.be.equal.to(registerActionSuccessFixture);
       });
   });
 
@@ -44,7 +44,7 @@ describe('Action Creator: registerUser', () => {
 
     return mockStore.dispatch(actions.registerUser(registerMockActionPayload))
       .then(() => {
-        expect(mockStore.getActions()).to.be.equal.to(registerActionFailureFixtures);
+        expect(mockStore.getActions()).to.be.equal.to(registerActionFailureFixture);
       });
   });
 });

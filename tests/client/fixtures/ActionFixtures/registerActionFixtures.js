@@ -1,6 +1,6 @@
 // import * as types from '../../../../src/client/actions/ActionTypes';
 
-const registerActionSuccessFixtures = [
+const registerActionSuccessFixture = [
   {
     type: types.REGISTER_USER_REQUEST,
     body: {
@@ -17,7 +17,7 @@ const registerActionSuccessFixtures = [
   },
 ];
 
-const registerActionFailureFixtures = [
+const registerActionFailureFixture = [
   {
     type: types.REGISTER_USER_REQUEST,
     body: {
@@ -46,7 +46,7 @@ const registerMockActionPayload = {
 };
 
 module.exports = {
-  registerActionSuccessFixtures,
-  registerActionFailureFixtures,
+  registerActionSuccessFixture,
+  registerActionFailureFixture,
   registerMockActionPayload,
 };
