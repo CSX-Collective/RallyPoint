@@ -8,15 +8,15 @@ import {
   loginActionSuccessFixture,
   loginActionFailureFixture1,
   loginActionFailureFixture2,
-} from './../fixtures/LoginFixtures/loginActionFixtures';
+} from './../fixtures/ActionFixtures/loginActionFixtures';
 import {
   forgotPasswordMockActionPayload1,
   forgotPasswordMockActionPayload2,
   forgotPasswordSuccessFixture,
   forgotPasswordFailureFixture,
-} from './../fixtures/LoginFixtures/forgotPasswordActionFixtures';
-// import * as actions from '../../../../src/client/actions/index';
-// import * as types from '../../../../src/client/actions/ActionTypes';
+} from './../fixtures/ActionFixtures/forgotPasswordActionFixtures';
+import * as actions from '../../../../src/client/actions/index';
+import * as types from '../../../../src/client/actions/ActionTypes';
 
 describe('Action Creator: loginUser', () => {
   after(() => {
