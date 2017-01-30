@@ -1,13 +1,13 @@
 // import * as types from '../../../../src/client/actions/ActionTypes';
 
-const forgotPasswordMockActionPayload1 = {
+const forgotPasswordMockAction1 = {
   type: types.FORGOT_PASSWORD_REQUEST,
   body: {
     email: 'jdoe@example.com',
   },
 };
 
-const forgotPasswordMockActionPayload2 = {
+const forgotPasswordMockAction2 = {
   type: types.FORGOT_PASSWORD_REQUEST,
   body: {
     email: 'jdo@example.com',
@@ -15,12 +15,7 @@ const forgotPasswordMockActionPayload2 = {
 };
 
 const forgotPasswordSuccessFixture = [
-  {
-    type: types.FORGOT_PASSWORD_REQUEST,
-    body: {
-      email: 'jdoe@example.com',
-    },
-  },
+  forgotPasswordMockAction1,
   {
     type: types.FORGOT_PASSWORD_SUCCESS,
     status: 'success',
@@ -28,12 +23,7 @@ const forgotPasswordSuccessFixture = [
 ];
 
 const forgotPasswordFailureFixture = [
-  {
-    type: types.FORGOT_PASSWORD_REQUEST,
-    body: {
-      email: 'jdo@example.com',
-    },
-  },
+  forgotPasswordMockAction2,
   {
     type: types.FORGOT_PASSWORD_FAILURE,
     status: 'failure',
@@ -41,8 +31,8 @@ const forgotPasswordFailureFixture = [
 ];
 
 module.exports = {
-  forgotPasswordMockActionPayload1,
-  forgotPasswordMockActionPayload2,
+  forgotPasswordMockAction1,
+  forgotPasswordMockAction2,
   forgotPasswordSuccessFixture,
   forgotPasswordFailureFixture,
 };
