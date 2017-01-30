@@ -4,7 +4,7 @@ import mockStore from './../fixtures/mockStore';
 import {
   registerActionSuccessFixture,
   registerActionFailureFixture,
-  registerMockActionPayload,
+  registerMockAction,
 } from './../fixtures/RegisterFixtures/registerActionFixtures';
 // import * as actions from '../../../../src/client/actions/index';
 // import * as types from '../../../../src/client/actions/ActionTypes';
@@ -25,7 +25,7 @@ describe('Action Creator: registerUser', () => {
       })
       .reply('201', { status: 'success' });
 
-    return mockStore.dispatch(actions.registerUser(registerMockActionPayload))
+    return mockStore.dispatch(actions.registerUser(registerMockAction))
       .then(() => {
         expect(mockStore.getActions()).to.be.equal.to(registerActionSuccessFixture);
       });
@@ -42,7 +42,7 @@ describe('Action Creator: registerUser', () => {
       })
       .reply('409', { status: 'failure' });
 
-    return mockStore.dispatch(actions.registerUser(registerMockActionPayload))
+    return mockStore.dispatch(actions.registerUser(registerMockAction))
       .then(() => {
         expect(mockStore.getActions()).to.be.equal.to(registerActionFailureFixture);
       });
