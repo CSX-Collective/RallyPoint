@@ -4,22 +4,22 @@ import { expect } from 'chai';
 // import Login from '../../../../src/client/components';
 
 describe('Component: <Login />', () => {
+  const shallowWrapper = shallow(<Login />);
+  const mountedWrapper = mount(<Login />);
+
   it('should have two input boxes and three buttons', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.find('input')).to.have.length(2);
-    expect(wrapper.find('button')).to.have.length(3);
+    expect(shallowWrapper.find('input')).to.have.length(2);
+    expect(shallowWrapper.find('button')).to.have.length(3);
   });
 
   it('should have props of loginUser, isPending, and isLoggedIn', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.props().loginUser).to.be.a.function;
-    expect(wrapper.props().isPending).to.be.a.boolean;
-    expect(wrapper.props().isLoggedIn).to.be.a.boolean;
+    expect(shallowWrapper.props().loginUser).to.be.a.function;
+    expect(shallowWrapper.props().isPending).to.be.a.boolean;
+    expect(shallowWrapper.props().isLoggedIn).to.be.a.boolean;
   });
 
   it('should update isPending on click', () => {
-    const wrapper = mount(<Login />);
-    wrapper.find('button')[0].simulate('click');
-    expect(wrapper.props().isPending).to.be.true;
+    mountedWrapper.find('button')[0].simulate('click');
+    expect(mountedWrapper.props().isPending).to.be.true;
   });
 });

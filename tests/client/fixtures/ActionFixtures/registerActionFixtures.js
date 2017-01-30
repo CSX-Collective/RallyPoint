@@ -1,42 +1,9 @@
 // import * as types from '../../../../src/client/actions/ActionTypes';
 
-const registerActionSuccessFixture = [
-  {
-    type: types.REGISTER_USER_REQUEST,
-    body: {
-      name: 'John Doe',
-      email: 'jdoe@example.com',
-      username: 'jaydee',
-      password: 'password123',
-      passwordconfirmation: 'password123',
-    },
-  },
-  {
-    type: types.REGISTER_USER_SUCCESS,
-    status: 'success',
-  },
-];
-
-const registerActionFailureFixture = [
-  {
-    type: types.REGISTER_USER_REQUEST,
-    body: {
-      name: 'John Doe',
-      email: 'jdoe@example.com',
-      username: 'jaydee',
-      password: 'password123',
-      passwordconfirmation: 'password123',
-    },
-  },
-  {
-    type: types.REGISTER_USER_FAILURE,
-    status: 'failure',
-  },
-];
-
-const registerMockActionPayload = {
+const registerMockAction = {
   type: types.REGISTER_USER_REQUEST,
   body: {
+    _id: 123,
     name: 'John Doe',
     email: 'jdoe@example.com',
     username: 'jaydee',
@@ -45,8 +12,24 @@ const registerMockActionPayload = {
   },
 };
 
+const registerActionSuccessFixture = [
+  registerMockAction,
+  {
+    type: types.REGISTER_USER_SUCCESS,
+    status: 'success',
+  },
+];
+
+const registerActionFailureFixture = [
+  registerMockAction,
+  {
+    type: types.REGISTER_USER_FAILURE,
+    status: 'failure',
+  },
+];
+
 module.exports = {
+  registerMockAction,
   registerActionSuccessFixture,
   registerActionFailureFixture,
-  registerMockActionPayload,
 };

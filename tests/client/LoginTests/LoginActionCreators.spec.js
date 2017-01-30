@@ -2,21 +2,20 @@ import { expect } from 'chai';
 import nock from 'nock';
 import mockStore from './../fixtures/mockStore';
 import {
-  loginMockActionPayload1,
-  loginMockActionPayload2,
-  loginMockActionPayload3,
+  loginMockAction1,
+  loginMockAction2,
+  loginMockAction3,
   loginActionSuccessFixture,
   loginActionFailureFixture1,
   loginActionFailureFixture2,
 } from './../fixtures/ActionFixtures/loginActionFixtures';
 import {
-  forgotPasswordMockActionPayload1,
-  forgotPasswordMockActionPayload2,
+  forgotPasswordMockAction1,
+  forgotPasswordMockAction2,
   forgotPasswordSuccessFixture,
   forgotPasswordFailureFixture,
 } from './../fixtures/ActionFixtures/forgotPasswordActionFixtures';
 import * as actions from '../../../../src/client/actions/index';
-import * as types from '../../../../src/client/actions/ActionTypes';
 
 describe('Action Creator: loginUser', () => {
   after(() => {
@@ -31,7 +30,7 @@ describe('Action Creator: loginUser', () => {
       })
       .reply('201', { status: 'success' });
 
-    return mockStore.dispatch(actions.loginUser(loginMockActionPayload1))
+    return mockStore.dispatch(actions.loginUser(loginMockAction1))
       .then(() => {
         expect(mockStore.getActions()).to.be.equal.to(loginActionSuccessFixture);
       });
@@ -45,7 +44,7 @@ describe('Action Creator: loginUser', () => {
       })
       .reply('401', { status: 'failure' });
 
-    return mockStore.dispatch(actions.loginUser(loginMockActionPayload2))
+    return mockStore.dispatch(actions.loginUser(loginMockAction2))
       .then(() => {
         expect(mockStore.getActions()).to.be.equal.to(loginActionFailureFixture1);
       });
@@ -59,7 +58,7 @@ describe('Action Creator: loginUser', () => {
       })
       .reply('401', { status: 'failure' });
 
-    return mockStore.dispatch(actions.loginUser(loginMockActionPayload3))
+    return mockStore.dispatch(actions.loginUser(loginMockAction3))
       .then(() => {
         expect(mockStore.getActions()).to.be.equal.to(loginActionFailureFixture2);
       });
@@ -79,7 +78,7 @@ describe('Action Creator: forgotPassword', () => {
       })
       .reply('201', { status: 'success' });
 
-    return mockStore.dispatch(actions.forgotPassword(forgotPasswordMockActionPayload1))
+    return mockStore.dispatch(actions.forgotPassword(forgotPasswordMockAction1))
       .then(() => {
         expect(mockStore.getActions()).to.be.equal.to(forgotPasswordSuccessFixture);
       });
@@ -92,7 +91,7 @@ describe('Action Creator: forgotPassword', () => {
       })
       .reply('401', { status: 'failure' });
 
-    return mockStore.dispatch(actions.forgotPassword(forgotPasswordMockActionPayload2))
+    return mockStore.dispatch(actions.forgotPassword(forgotPasswordMockAction2))
       .then(() => {
         expect(mockStore.getActions()).to.be.equal.to(forgotPasswordFailureFixture);
       });

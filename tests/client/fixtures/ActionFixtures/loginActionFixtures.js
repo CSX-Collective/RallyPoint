@@ -1,6 +1,6 @@
 // import * as types from '../../../../src/client/actions/ActionTypes';
 
-const loginMockActionPayload1 = {
+const loginMockAction1 = {
   type: types.LOGIN_USER_REQUEST,
   body: {
     email: 'jdoe@example.com',
@@ -8,7 +8,7 @@ const loginMockActionPayload1 = {
   },
 };
 
-const loginMockActionPayload2 = {
+const loginMockAction2 = {
   type: types.LOGIN_USER_REQUEST,
   body: {
     email: 'jdoe@example.com',
@@ -16,7 +16,7 @@ const loginMockActionPayload2 = {
   },
 };
 
-const loginMockActionPayload3 = {
+const loginMockAction3 = {
   type: types.LOGIN_USER_REQUEST,
   body: {
     email: 'jdo@example.com',
@@ -25,13 +25,7 @@ const loginMockActionPayload3 = {
 };
 
 const loginActionSuccessFixture = [
-  {
-    type: types.LOGIN_USER_REQUEST,
-    body: {
-      email: 'jdoe@example.com',
-      password: 'password123',
-    },
-  },
+  loginMockAction1,
   {
     type: types.LOGIN_USER_SUCCESS,
     status: 'success',
@@ -39,13 +33,7 @@ const loginActionSuccessFixture = [
 ];
 
 const loginActionFailureFixture1 = [
-  {
-    type: types.LOGIN_USER_REQUEST,
-    body: {
-      email: 'jdoe@example.com',
-      password: 'password1',
-    },
-  },
+  loginMockAction2,
   {
     type: types.LOGIN_USER_FAILURE,
     status: 'failure',
@@ -53,13 +41,7 @@ const loginActionFailureFixture1 = [
 ];
 
 const loginActionFailureFixture2 = [
-  {
-    type: types.LOGIN_USER_REQUEST,
-    body: {
-      email: 'jdo@example.com',
-      password: 'password123',
-    },
-  },
+  loginMockAction3,
   {
     type: types.LOGIN_USER_FAILURE,
     status: 'failure',
@@ -67,9 +49,9 @@ const loginActionFailureFixture2 = [
 ];
 
 module.exports = {
-  loginMockActionPayload1,
-  loginMockActionPayload2,
-  loginMockActionPayload3,
+  loginMockAction1,
+  loginMockAction2,
+  loginMockAction3,
   loginActionSuccessFixture,
   loginActionFailureFixture1,
   loginActionFailureFixture2,
