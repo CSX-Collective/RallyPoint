@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha -w tests/client/fixtures/jsdom.js tests/client/* tests/server/*",
     "test:client": "mocha -w tests/client/fixtures/jsdom.js tests/client/*",
+    "test:profile": "mocha -w tests/client/fixtures/jsdom.js tests/client/ViewProfileTests/* tests/client/EditProfileTests/*",
     "test:server": "NODE_ENV=test mocha -w tests/server/*",
     "start": "node server/index.js",
     "start:dev": "NODE_ENV=test nodemon server/index.js",
