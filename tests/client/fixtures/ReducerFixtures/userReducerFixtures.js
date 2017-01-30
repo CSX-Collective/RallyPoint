@@ -2,61 +2,29 @@
 // import * as types from '../../../../src/client/actions/ActionTypes';
 
 const initialUserStateFixture = {
+  _id: 1,
   name: '',
   email: '',
   username: '',
+  coords: { lat: 0, lng: 0 },
   isPending: false, // When true, this flag indicates that the browser should display a spinner
   isLoggedIn: false,
 };
 
-const userReducerRegisterMockAction = {
-  type: types.REGISTER_USER_REQUEST,
-  body: {
-    name: 'John Doe',
-    email: 'jdoe@example.com',
-    username: 'jaydee',
-    password: 'password123',
-    passwordconfirmation: 'password123',
-  },
-};
-
-const userReducerLoginMockAction1 = {
-  type: types.LOGIN_USER_REQUEST,
-  body: {
-    email: 'jdoe@example.com',
-    password: 'password123',
-  },
-};
-
-const userReducerLoginMockAction2 = {
-  type: types.LOGIN_USER_REQUEST,
-  body: {
-    email: 'jdoe@example.com',
-    password: 'password1',
-  },
-};
-
-const userReducerLoginMockAction3 = {
-  type: types.LOGIN_USER_REQUEST,
-  body: {
-    email: 'jdo@example.com',
-    password: 'password123',
-  },
-};
-
 const userReducerLoggedInFixture = {
+  _id: 123,
   name: 'John Doe',
   email: 'jdoe@example.com',
   username: 'jaydee',
+  coords: {
+    lat: 34.053,
+    lng: -118.242,
+  },
   isPending: false,
   isLoggedIn: true,
 };
 
 module.exports = {
   initialUserStateFixture,
-  userReducerRegisterMockAction,
-  userReducerLoginMockAction1,
-  userReducerLoginMockAction2,
-  userReducerLoginMockAction3,
   userReducerLoggedInFixture,
 };
