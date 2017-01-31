@@ -5,12 +5,22 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 mockStore({
   user: {
+    _id: 1,
     name: '',
     email: '',
     username: '',
-    isCreating: false,
+    coords: { lat: 0, lng: 0 },
+    isPending: false,
     isLoggedIn: false,
-    didLogout: false,
+  },
+  events: {
+    rallypoints: [],
+    keywords: [],
+    selectedRallypoint: {},
+    range: 10,
+  },
+  viewUser: {
+
   },
 });
 
