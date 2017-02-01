@@ -1,6 +1,14 @@
+# Build and Dependancies
 /node_modules
 /dist
+
+# Debug
 npm-debug.log
 debug.log
 exceptions.log
+
+# Configuration
 /config
+
+# Ruby dump files
+dump.rdb
