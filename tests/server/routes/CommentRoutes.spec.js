@@ -89,3 +89,55 @@ describe('POST /events/:event_id/comments', function() {
   });
 });
 
+describe('PATCH /events/:event_id/comments/:comment_id', function() {
+  beforeEach(function(done) {
+    db.query(`delete from comments; insert into comments (_id, user_id, event_id, content, created) values (${_id}, ${user_id}, ${event_id}, '${content}', '${created}')`, (err) => {
+      if (err) done(err);
+      done();
+    });
+  });
+
+  it('should update comment\'s content', function(done) {
+    server
+    .patch('/events/1/comments/1')
+    .send({ content: 'This message has been changed' })
+    .expect(204)
+    .end(function(err, res) {
+      if (err) done(err);
+
+      db.query('select * from comments where event_id= 1', (err, comments) => {
+        if (err) done (err);
+
+        expect(comments.rows[0].content).to.eql('This message has been changed');
+        done();
+      });
+    });
+  });
+
+  it('should send error response with invalid request body', function(done) {
+    server
+    .patch('/events/1/comments/1')
+    .send( { message: 'Message' })
+    .expect(400)
+    .end(function(err, res) {
+      if (err) done(err);
+
+      db.query('select * from comments where event_id= 1', (err, comments) => {
+        if (err) done(err);
+
+        expect(comments.rows[0]).to.exist;
+        expect(comments.rows[0].message).to.not.exist;
+        done();
+      });
+    });
+  });
+
+  it('should handle update of nonexistent comment', function(done) {
+    server
+    .patch('/events/1/comments/4')
+    .send({ content: 'This message should not exist' })
+    .expect(204)
+    .end(done);
+  });
+});
+
