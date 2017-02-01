@@ -141,3 +141,42 @@ describe('PATCH /events/:event_id/comments/:comment_id', function() {
   });
 });
 
+describe('DELETE /events/:event_id/comments/:comment_id', function(done) {
+  beforeEach(function(done) {
+    db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (${_id}, '${email}', '${password}', '${first_name}', '${last_name}', '${dob}')`, (err) => {
+      if (err) done(err);
+      done();
+    });
+  });
+  
+  it('should delete a comment', function(done) {
+    server
+    .delete('/events/1/comments/1')
+    .expect(204)
+    .end(function(err, res) {
+      if (err) done(err);
+      db.query(`select * from comments where event_id= 1`, (err, event) {
+        if (err) done(err);
+
+        expect(event.rows).to.eql([]);
+        done();
+      });
+    });
+  });
+
+  it('should handle delete of nonexistent comment', function(done) {
+    server
+    .delete('/events/1/comments/10')
+    .expect(204)
+    .end(function(err, res) {
+      if (err) done(err);
+
+      db.query(`select * from comments where event_id= 1`, (err, event) => {
+        if (err) done(err);
+
+        expect(event.rows).to.have.lengthOf(1);
+        done();
+      });
+    });
+  }); 
+});
