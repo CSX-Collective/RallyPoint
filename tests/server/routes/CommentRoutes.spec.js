@@ -43,3 +43,49 @@ describe ('GET /events/:event_id/comments', function() {
   });
 });
 
+describe('POST /events/:event_id/comments', function() {
+  it('should create comment', function(done) {
+    server
+    .post('/events/1/comments')
+    .send({
+      user_id,
+      event_id,
+      content: 'This is another message',
+      created: Date.now(),
+    })
+    .expect(201)
+    .end(function(err, res) {
+      if (err) done(err);
+      db.query('select * from comments where event_id= 1', (err, comment) => {
+        if (err) done (err);
+
+        expect(comment.rows).to.have.lengthOf(2);
+        expect(user.rows[1]._id).to.exist;
+        expect(user.rows[1].content).to.eql('This is another message');
+      });
+    });
+  });
+
+  it ('should send error response with invalid request body', function(done) {
+
+    server
+    .post('/events/1/comments')
+    .send({
+      user_id,
+      event_id,
+      created: Date.now(),
+    })
+    .expect(400)
+    .end(function(err, res) {
+      if (err) done(err);
+
+      db.query('select * from comments where event_id= 1', (err, comments) => {
+        if (err) done(err);
+
+        expect(comments.rows).to.eql([]);
+        done();
+      });
+    });
+  });
+});
+
