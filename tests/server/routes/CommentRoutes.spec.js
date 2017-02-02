@@ -6,8 +6,7 @@ const { _id, user_id, event_id, content, created } = comment;
 
 const server = supertest.agent('http://localhost:8080');
 
-describe ('GET /events/:event_id/comments', function() {
-
+describe('GET /events/:event_id/comments', function() {
   beforeEach(function(done) {
     db.query(`delete from comments; insert into comments (_id, user_id, event_id, content, created) values (${_id}, ${user_id}, ${event_id}, '${content}', '${created}')`, (err) => {
       if (err) done(err);
@@ -23,7 +22,7 @@ describe ('GET /events/:event_id/comments', function() {
       if (err) done(err);
       expect(res.body).to.exist;
       expect(res.body).to.have.lengthOf(1);
-      expect(res.body[0])._id.to.eql(1);
+      expect(res.body[0]).event_id.to.eql(1);
       expect(res.body[0]).content.to.eql('This is a message');
       done();
     });
@@ -66,8 +65,7 @@ describe('POST /events/:event_id/comments', function() {
     });
   });
 
-  it ('should send error response with invalid request body', function(done) {
-
+  it('should send error response with invalid request body', function(done) {
     server
     .post('/events/1/comments')
     .send({
@@ -155,7 +153,7 @@ describe('DELETE /events/:event_id/comments/:comment_id', function(done) {
     .expect(204)
     .end(function(err, res) {
       if (err) done(err);
-      db.query(`select * from comments where event_id= 1`, (err, event) {
+      db.query(`select * from comments where event_id= 1`, (err, event) => {
         if (err) done(err);
 
         expect(event.rows).to.eql([]);
