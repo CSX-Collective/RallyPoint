@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const config = require('config');
 const logger = require('./logs/logger');
 const userRoute = require('./users/userRoute');
-const eventRoute = require('./events/eventRoute';)
+const eventRoute = require('./events/eventRoute');
 
 // session handlers
 const redis = require('redis');
