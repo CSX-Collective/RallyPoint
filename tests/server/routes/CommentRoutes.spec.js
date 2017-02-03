@@ -2,13 +2,16 @@ const expect = require('chai').expect;
 const supertest = require('supertest');
 const db = require('../../../server/database/database');
 const comment = require('../fixtures/commentFixtures');
-const { _id, user_id, event_id, content, created } = comment;
-
+const event = require('../fixtures/eventFixtures');
 const server = supertest.agent('http://localhost:8080');
 
 describe('GET /events/:event_id/comments', function() {
   beforeEach(function(done) {
-    db.query(`delete from comments; insert into comments (_id, user_id, event_id, content, created) values (${_id}, ${user_id}, ${event_id}, '${content}', '${created}')`, (err) => {
+    // db.query(`delete from events; insert into events (_id, title, event_desc, start_date, end_date, location, min_age, category) values (${event._id}, ${event.title}, ${event.event_desc}, ${event.start_date}, ${event.end_date}, ${event.location}, ${event.min_age}, ${event.category})`, (err) => {
+    //   if (err) done(err);
+    // });
+
+    db.query(`delete from comments; insert into comments (_id, user_id, event_id, content, created) values (${comment._id}, ${comment.user_id}, ${comment.event_id}, '${comment.content}', '${comment.created}')`, (err) => {
       if (err) done(err);
       done();
     });
@@ -28,7 +31,7 @@ describe('GET /events/:event_id/comments', function() {
     });
   });
 
-  it('should return nothing when fetching comments from nonexistent event', function() {
+  it('should return nothing when fetching comments from nonexistent event', function(done) {
     server
     .get('/events/2/comments')
     .expect(200)
@@ -47,20 +50,20 @@ describe('POST /events/:event_id/comments', function() {
     server
     .post('/events/1/comments')
     .send({
-      user_id,
-      event_id,
+      user_id: comment.user_id,
+      event_id: comment.event_id,
       content: 'This is another message',
       created: Date.now(),
     })
     .expect(201)
     .end(function(err, res) {
       if (err) done(err);
-      db.query('select * from comments where event_id= 1', (err, comment) => {
+      db.query('select * from comments where _id= 1', (err, comment) => {
         if (err) done (err);
 
         expect(comment.rows).to.have.lengthOf(2);
-        expect(user.rows[1]._id).to.exist;
-        expect(user.rows[1].content).to.eql('This is another message');
+        expect(comment.rows[1]._id).to.exist;
+        expect(comment.rows[1].content).to.eql('This is another message');
       });
     });
   });
@@ -69,8 +72,8 @@ describe('POST /events/:event_id/comments', function() {
     server
     .post('/events/1/comments')
     .send({
-      user_id,
-      event_id,
+      user_id: comment.user_id,
+      event_id: comment.event_id,
       created: Date.now(),
     })
     .expect(400)
@@ -89,7 +92,7 @@ describe('POST /events/:event_id/comments', function() {
 
 describe('PATCH /events/:event_id/comments/:comment_id', function() {
   beforeEach(function(done) {
-    db.query(`delete from comments; insert into comments (_id, user_id, event_id, content, created) values (${_id}, ${user_id}, ${event_id}, '${content}', '${created}')`, (err) => {
+    db.query(`delete from comments; insert into comments (_id, user_id, event_id, content, created) values (${comment._id}, ${comment.user_id}, ${comment.event_id}, '${comment.content}', '${comment.created}')`, (err) => {
       if (err) done(err);
       done();
     });
@@ -103,7 +106,7 @@ describe('PATCH /events/:event_id/comments/:comment_id', function() {
     .end(function(err, res) {
       if (err) done(err);
 
-      db.query('select * from comments where event_id= 1', (err, comments) => {
+      db.query('select * from comments where _id= 1', (err, comments) => {
         if (err) done (err);
 
         expect(comments.rows[0].content).to.eql('This message has been changed');
@@ -120,7 +123,7 @@ describe('PATCH /events/:event_id/comments/:comment_id', function() {
     .end(function(err, res) {
       if (err) done(err);
 
-      db.query('select * from comments where event_id= 1', (err, comments) => {
+      db.query('select * from comments where _id= 1', (err, comments) => {
         if (err) done(err);
 
         expect(comments.rows[0]).to.exist;
@@ -139,9 +142,9 @@ describe('PATCH /events/:event_id/comments/:comment_id', function() {
   });
 });
 
-describe('DELETE /events/:event_id/comments/:comment_id', function(done) {
+describe('DELETE /events/:event_id/comments/:comment_id', function() {
   beforeEach(function(done) {
-    db.query(`delete from users; insert into users (_id, email, password, first_name, last_name, dob) values (${_id}, '${email}', '${password}', '${first_name}', '${last_name}', '${dob}')`, (err) => {
+    db.query(`delete from comments; insert into comments (_id, user_id, event_id, content, created) values (${comment._id}, ${comment.user_id}, ${comment.event_id}, '${comment.content}', '${comment.created}')`, (err) => {
       if (err) done(err);
       done();
     });
@@ -153,7 +156,7 @@ describe('DELETE /events/:event_id/comments/:comment_id', function(done) {
     .expect(204)
     .end(function(err, res) {
       if (err) done(err);
-      db.query(`select * from comments where event_id= 1`, (err, event) => {
+      db.query('select * from comments where _id= 1', (err, event) => {
         if (err) done(err);
 
         expect(event.rows).to.eql([]);
@@ -169,12 +172,12 @@ describe('DELETE /events/:event_id/comments/:comment_id', function(done) {
     .end(function(err, res) {
       if (err) done(err);
 
-      db.query(`select * from comments where event_id= 1`, (err, event) => {
+      db.query('select * from comments where _id= 1', (err, event) => {
         if (err) done(err);
 
         expect(event.rows).to.have.lengthOf(1);
         done();
       });
     });
-  }); 
+  });
 });

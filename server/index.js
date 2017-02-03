@@ -50,8 +50,6 @@ app.get('/dist/bundle.js', (req, res) => {
 app.use('/users', userRoute);
 app.use('/events', eventRoute);
 
-app.use('/events', eventRoute);
-
 app.all('*', (req, res) => {
   res.status(404).end();
 });

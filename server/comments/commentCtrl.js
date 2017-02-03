@@ -57,3 +57,5 @@ const commentCtrl = {
     });
   },
 }
+
+module.exports = commentCtrl;
