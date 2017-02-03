@@ -7,9 +7,9 @@ const logger = require('../logs/logger');
 db.query(`CREATE TABLE IF NOT EXISTS "events" (
   _id serial primary key,
   title varchar(256) not null,
-  desc varchar(256),
-  start date not null,
-  end date not null,
+  event_desc varchar(256),
+  start_date date not null,
+  end_date date not null,
   location varchar(256) not null,
   min_age integer,
   category varchar(256)
