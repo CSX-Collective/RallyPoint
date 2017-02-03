@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const config = require('config');
 const logger = require('./logs/logger');
 const userRoute = require('./users/userRoute');
+const eventRoute = require('./events/eventRoute');
 
 // session handlers
 const redis = require('redis');
@@ -47,6 +48,7 @@ app.get('/dist/bundle.js', (req, res) => {
 });
 
 app.use('/users', userRoute);
+app.use('/events', eventRoute);
 
 app.all('*', (req, res) => {
   res.status(404).end();
